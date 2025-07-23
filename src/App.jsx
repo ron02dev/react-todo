@@ -1,47 +1,77 @@
-import { useState } from "react";
+import { createContext, useReducer} from "react";
 import "./Styles/App.scss";
 import InputBar from "./Components/InputBar";
 import TodosList from "./Components/TodosList";
+
+export const ACTIONS = {
+  ADD_TODO: "add-todo",
+  DELETE_TODO: "delete-todo",
+  TOGGLE_AS_DONE: "done-todo",
+  ADD_TO_CATEGORY_TODO: "add-to-category",
+  EDIT_TODO: "edit-todo",
+  CLEAR_TODO: "clear-todo",
+};
+
+
+function reducer(todos, action) {
+  switch (action.type) {
+
+    case ACTIONS.ADD_TODO:
+      return [...todos, newTodo(action.payload.inputText)];
+      break;
+    case ACTIONS.TOGGLE_AS_DONE:
+      return todos.map((todo) => {
+        if (action.payload.id === todo.id) {
+          return { ...todo, isComplete: !todo.isComplete };
+        }
+        return todo;
+      });
+      break;
+    case ACTIONS.DELETE_TODO:
+      return todos.filter((todo) => {
+        return todo.id !== action.payload.id;
+      });
+      break;
+      case ACTIONS.CLEAR_TODO:
+        return []
+      break;
+      case ACTIONS.EDIT_TODO:
+
+  }
+}
+
+function newTodo(user_input) {
+  return {
+    id: Date.now(),
+    context: user_input,
+    isComplete: true,
+    category: ["Personal"],
+  };
+}
+
+
+
+export const dispatchContext = createContext(null)
+
+
+
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, dispatch] = useReducer(reducer, []);
+   
 
-  function handleCreate(newItem) {
-    newItem && setTodos((todos)=>[...todos,newItem])
+
+  function handleCreateTodo(inputText) {
+    dispatch({ type: ACTIONS.ADD_TODO, payload: { inputText } });
   }
 
-  function handleDeleteAll() {
-    setTodos([])
-  }
-
-  function handleDelete(event,_index) {
-    event.preventDefault();
-    const newArray = todos.filter((item,itemIndex)=>{
-      console.log(itemIndex)
-      return itemIndex !== _index
-    })
-   setTodos(newArray)
-  }
-
-  function handleEditTodo(event,index){
-    event.preventDefault();
-    const value = event.target.value
-    const newArray = [...todos]
-    newArray[index] = value
-    setTodos(newArray)
-  }
+  console.log(todos);
 
   return (
     <>
-      <h1 className="app-title">Todos App</h1>
-      <InputBar onCreate={handleCreate} onDeleteAll={handleDeleteAll} />
-
-      <section className="item-list-container">
-         {todos.length ? (
-        <TodosList lists={todos} onDelete={handleDelete} onEditTodo={handleEditTodo} />
-      ) : (
-        <p>Add some items to your list to get started!</p>
-      )}
-      </section>
+    <dispatchContext.Provider value={dispatch}>
+            <InputBar onCreate={handleCreateTodo}/>
+      {todos && <TodosList todos={todos}/>}
+    </dispatchContext.Provider>
     </>
   );
 }

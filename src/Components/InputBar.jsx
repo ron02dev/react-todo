@@ -1,14 +1,15 @@
-import { useState } from 'react'
+import { useState,useContext } from 'react'
 import './Styles/Components.scss'
-function InputBar({onCreate,onDeleteAll}) {
+import { ACTIONS } from '../App'
+import { dispatchContext } from '../App'
+function InputBar({onCreate}) {
 
     const [input,setInput] =useState('')
-
+    const dispatch = useContext(dispatchContext)
 
     const handleInput = (event)=>{
         console.log(event.target.value)
-        setInput(event.target.value)
-        
+        setInput(event.target.value)    
     }
 
     const handleSubmit = (event) => {
@@ -24,7 +25,7 @@ function InputBar({onCreate,onDeleteAll}) {
             </form>
             <section>
                 <button className='add-btn' onClick={handleSubmit}>Add Todo</button>
-                <button className='clr-btn' onClick={onDeleteAll}>Clear Todo</button>
+                <button className='clr-btn' onClick={()=>{dispatch({type:ACTIONS.CLEAR_TODO})}}>Clear Todo</button>
             </section>
         </div>
     )
