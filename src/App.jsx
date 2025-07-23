@@ -36,7 +36,9 @@ function reducer(todos, action) {
         return []
       break;
       case ACTIONS.EDIT_TODO:
-
+        console.log(action.payload.id)
+      break;
+        break;
   }
 }
 
