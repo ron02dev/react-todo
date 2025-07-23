@@ -2,38 +2,10 @@ import { useState, useContext } from "react";
 import "./Styles/Components.scss";
 import { ACTIONS } from "../App";
 import { globalDispatch } from "../App";
-// function InputBar({onCreate}) {
-
-//     const [input,setInput] =useState('')
-//    
-
-//     const handleInput = (event)=>{
-//         console.log(event.target.value)
-//         setInput(event.target.value)
-//     }
-
-//     return (
-//         <div className='input-container'>
-//             <button>Create Task</button>
-//             <form onSubmit={handleSubmit} >
-//                 <input type="text"  onChange={handleInput} value={input} placeholder='Create a note...' />
-//             </form>
-//             <section>
-//                 <button className='add-btn' onClick={handleSubmit}>Add Todo</button>
-//                 <button className='clr-btn' onClick={()=>{dispatch({type:ACTIONS.CLEAR_TODO})}}>Clear Todo</button>
-//             </section>
-//         </div>
-//     )
-// }
-
-
-
- const dispatch = useContext(globalDispatch)
-
 
 function InputBar() {
   const [isActive, setIsActive] = useState(false);
-
+  const dispatch = useContext(globalDispatch);
   const handleCreate = () => {
     setIsActive(!isActive);
   };
@@ -53,23 +25,31 @@ function InputBar() {
 
 function TodoForm({ onCreate }) {
   const [input, setInput] = useState("");
+  const dispatch = useContext(globalDispatch);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const taskContext = event.target[0].value;
-    const taskPriority = event.target[1].value;
-    const taskCategory = event.target[2].value;
+    // if has value
+    if (taskContext) {
+      const taskPriority = event.target[1].value;
+      const taskCategory = event.target[2].value;
 
-    const newTodo = {
-      id: Date.now(),
-      isComplete: false,
-      taskContext,
-      taskPriority,
-      taskCategory
-    };
+      const newTodo = {
+        id: Date.now(),
+        isComplete: false,
+        taskContext,
+        taskPriority,
+        taskCategory,
+      };
 
-    onCreate();
+      dispatch({ type: ACTIONS.ADD_TODO, payload: newTodo });
 
+      // SETS IS ACTIVE TO FALSE
+      // ONCREATE DONT DELETE
+      onCreate();
+    }
     setInput("");
   };
 
@@ -106,4 +86,5 @@ function TodoForm({ onCreate }) {
     </form>
   );
 }
+
 export default InputBar;

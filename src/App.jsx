@@ -1,11 +1,7 @@
-import { createContext, useReducer} from "react";
+import { createContext, useReducer } from "react";
 import "./Styles/App.scss";
 import InputBar from "./Components/InputBar";
 // import TodosList from "./Components/TodosList";
-
-
-
-
 
 export const ACTIONS = {
   ADD_TODO: "add-todo",
@@ -18,10 +14,10 @@ export const ACTIONS = {
 
 function reducer(todos, action) {
   switch (action.type) {
-
     case ACTIONS.ADD_TODO:
-      return [...todos, newTodo(action.payload.inputText)];
+      return [...todos, action.payload];
       break;
+
     case ACTIONS.TOGGLE_AS_DONE:
       return todos.map((todo) => {
         if (action.payload.id === todo.id) {
@@ -30,34 +26,41 @@ function reducer(todos, action) {
         return todo;
       });
       break;
+
     case ACTIONS.DELETE_TODO:
       return todos.filter((todo) => {
         return todo.id !== action.payload.id;
       });
       break;
-      case ACTIONS.CLEAR_TODO:
-        return []
+
+    case ACTIONS.CLEAR_TODO:
+      return [];
       break;
-      case ACTIONS.EDIT_TODO:
-        console.log(action.payload.id)
+
+    case ACTIONS.EDIT_TODO:
+      console.log(action.payload.id);
       break;
-        break;
+
   }
 }
 
-function newTodo(user_input) {
-  return {
-    id: Date.now(),
-    context: user_input,
-    isComplete: true,
-    category: ["Personal"],
-  };
+export const globalDispatch = createContext(null);
+
+function App() {
+  const [todos, dispatch] = useReducer(reducer, []);
+    console.log(todos)
+  return (
+    <>
+      <globalDispatch.Provider value={dispatch}>
+        <InputBar />
+      </globalDispatch.Provider>
+    </>
+  );
 }
 
+export default App;
+
 // function App() {
-
-   
-
 
 //   function handleCreateTodo(inputText) {
 //     dispatch({ type: ACTIONS.ADD_TODO, payload: { inputText } });
@@ -76,18 +79,3 @@ function newTodo(user_input) {
 // }
 
 // export default App;
-
-export const globalDispatch = createContext(null)
-
-function App() {
-    const [todos, dispatch] = useReducer(reducer, []);
-  return (
-    <>
-    <globalDispatch.Provider value={dispatch}>
-      <InputBar/>
-    </globalDispatch.Provider>
-    </>
-  )
-}
-
-export default App
