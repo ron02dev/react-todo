@@ -62,15 +62,21 @@ $color-error: #ef5350;
   border: 1px solid $color-border;
   border-radius: 5px;
 
+
+
+  .todo__create-btn{
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+  }
+
+
+
   .todo__create-btn,
   .form__submit-btn {
     padding: 10px 25px;
     background-color: $color-accent;
     color: $color-text-primary;
-    justify-self: center;
   }
-
-  
 
   .todo__form {
     display: flex;
@@ -93,7 +99,6 @@ $color-error: #ef5350;
     gap: 15px;
 
     span {
-
       select {
         width: 100%;
         padding: 5px;
@@ -104,13 +109,35 @@ $color-error: #ef5350;
         font-size: $font-size-base;
       }
 
-      p {
-        color: $color-text-primary;
-        font-size: $font-size-sm;
-        padding: 5px;
-      }
-
+      // p {
+      //   color: $color-text-primary;
+      //   font-size: $font-size-sm;
+      //   padding: 5px;
+      // }
     }
+  }
+}
+
+main {
+  padding: 5px;
+  height: 100%;
+   flex: 1;
+}
+.todo__list-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: start;
+  flex-wrap: wrap-reverse;
+  gap: 15px;
+  padding: 15px;
+  .item {
+    background-color: $color-surface;
+    border: 1px solid $color-accent;
+    color: $color-text-primary;
+    list-style: none;
+    padding: 15px;
+    border-radius: 1rem;
+    min-height: 3rem;
   }
 }
 

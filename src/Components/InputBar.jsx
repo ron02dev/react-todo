@@ -1,11 +1,10 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import "./Styles/Components.scss";
 import { ACTIONS } from "../App";
 import { globalDispatch } from "../App";
 
 function InputBar() {
   const [isActive, setIsActive] = useState(false);
-  const dispatch = useContext(globalDispatch);
   const handleCreate = () => {
     setIsActive(!isActive);
   };
@@ -23,39 +22,48 @@ function InputBar() {
   );
 }
 
-function TodoForm({ onCreate }) {
+function TodoForm({ onCreate}) {
   const [input, setInput] = useState("");
   const dispatch = useContext(globalDispatch);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const taskContext = event.target[0].value;
-    // if has value
-    if (taskContext) {
+    console.log(event)
+    const taskTitle = event.target[0].value || null;
+    if (taskTitle) {
       const taskPriority = event.target[1].value;
       const taskCategory = event.target[2].value;
 
       const newTodo = {
         id: Date.now(),
         isComplete: false,
-        taskContext,
+        taskTitle,
         taskPriority,
         taskCategory,
       };
 
       dispatch({ type: ACTIONS.ADD_TODO, payload: newTodo });
-
-      // SETS IS ACTIVE TO FALSE
-      // ONCREATE DONT DELETE
-      onCreate();
+    }else{
+        console.log("focus lost")
+       onCreate(); 
     }
+          // SETS IS ACTIVE TO FALSE
+      // ONCREATE DONT DELETE
+  
+    onCreate();
     setInput("");
   };
+
+  const inputRef = useRef(null)
+  
+  useEffect(()=>{
+    inputRef.current.focus();
+  },[])
 
   return (
     <form onSubmit={handleSubmit} className="todo__form">
       <input
+        ref={inputRef}
         type="text"
         className="todo__input"
         onChange={(event) => {
@@ -65,7 +73,7 @@ function TodoForm({ onCreate }) {
       />
       <section className="form__section">
         <span>
-          <p>Urgency</p>
+          
           <select name="urgency" defaultValue={"low"} id="urgency">
             <option value="Can Wait">Can Wait</option>
             <option value="Needs Attention">Needs Attention</option>
@@ -73,7 +81,7 @@ function TodoForm({ onCreate }) {
           </select>
         </span>
         <span>
-          <p>Task Category</p>
+          
           <select name="categories" defaultValue={"Personal"} id="categories">
             <option value="Personal">Personal</option>
             <option value="Home">Home</option>

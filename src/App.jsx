@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 import "./Styles/App.scss";
 import InputBar from "./Components/InputBar";
-// import TodosList from "./Components/TodosList";
+import TodosList from "./Components/TodosList";
 
 export const ACTIONS = {
   ADD_TODO: "add-todo",
@@ -53,6 +53,7 @@ function App() {
     <>
       <globalDispatch.Provider value={dispatch}>
         <InputBar />
+        <TodosList todos={todos} />
       </globalDispatch.Provider>
     </>
   );
