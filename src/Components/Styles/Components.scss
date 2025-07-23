@@ -1,0 +1,106 @@
+$bg_light: #f9fafb;
+$bg_medium: #e0e7ea;
+$bg_dark: #2f3e46;
+
+ 
+$accent_success: #88d8b0; // soft mint green
+$accent_warning: #f4d35e; // warm yellow
+$accent_danger: #ee6c4d;  // soft coral red
+
+
+
+.input-container{
+justify-content: space-between;
+padding: 5px;
+
+
+    input{
+    border: 1px solid black;
+    font-size: large;
+    font-weight: bold;
+        padding: 10px;
+        outline: none;
+         border-radius: 10px;
+        
+    }
+
+    section{
+      
+      padding: 10px;
+      gap: 5px;
+        display: flex;
+        flex-direction: row;
+         align-content: center;
+         align-items: center;
+         justify-content: space-between; 
+    }
+
+    button{
+        justify-self: center;
+        align-self: center;
+        font-weight: bold;
+        padding: 15px 5px;
+       border-radius: 5px;
+      
+    }
+    .add-btn{
+       background-color: $accent_success;
+    }
+
+    .clr-btn{
+        background-color: $accent_danger;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+.list-container{
+    height: 100%;
+display: flex;
+flex-direction: column;
+gap: 15px;
+padding: 15px 15px;
+
+    li{
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+  
+        gap: 15px;
+    }
+
+    input{
+  
+    font-size: large;
+    font-weight: bold;
+        padding: 10px;
+        outline: none;
+         border-radius: 10px;
+        
+    }
+
+    button{
+           justify-self: center;
+        align-self: center;
+        font-weight: bold;
+        padding: 5px 35px;
+       border-radius: 5px;
+       
+    }
+
+    .del-btn{
+         background-color: $accent_danger;
+    }
+    .check-btn{
+        background-color: $accent_success;
+    }
+}
