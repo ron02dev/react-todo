@@ -60,13 +60,58 @@ $color-error: #ef5350;
   padding: 5px;
   background-color: $color-surface;
   border: 1px solid $color-border;
+  border-radius: 5px;
 
-  .task-create-btn {
+  .todo__create-btn,
+  .form__submit-btn {
     padding: 10px 25px;
     background-color: $color-accent;
     color: $color-text-primary;
+    justify-self: center;
   }
 
+  
+
+  .todo__form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .todo__input {
+    padding: 5px;
+    font-size: 1.4rem;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid $color-border;
+  }
+
+  .form__section {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 15px;
+
+    span {
+
+      select {
+        width: 100%;
+        padding: 5px;
+        background-color: $color-border;
+        color: $color-text-primary;
+        outline: none;
+        border: none;
+        font-size: $font-size-base;
+      }
+
+      p {
+        color: $color-text-primary;
+        font-size: $font-size-sm;
+        padding: 5px;
+      }
+
+    }
+  }
 }
 
 .hide {

@@ -1,22 +1,16 @@
-import { useState,useContext } from 'react'
-import './Styles/Components.scss'
-// import { ACTIONS } from '../App'
-// import { dispatchContext } from '../App'
+import { useState, useContext } from "react";
+import "./Styles/Components.scss";
+import { ACTIONS } from "../App";
+import { globalDispatch } from "../App";
 // function InputBar({onCreate}) {
 
 //     const [input,setInput] =useState('')
-//     const dispatch = useContext(dispatchContext)
+//    
 
 //     const handleInput = (event)=>{
 //         console.log(event.target.value)
-//         setInput(event.target.value)    
+//         setInput(event.target.value)
 //     }
-
-//     const handleSubmit = (event) => {
-//     event.preventDefault();
-//     onCreate(input)
-//     setInput('')
-//   };
 
 //     return (
 //         <div className='input-container'>
@@ -32,44 +26,84 @@ import './Styles/Components.scss'
 //     )
 // }
 
+
+
+ const dispatch = useContext(globalDispatch)
+
+
 function InputBar() {
+  const [isActive, setIsActive] = useState(false);
 
-    const [isActive,setIsActive] = useState(false)
-    const handleCreate =()=>{
-        setIsActive(!isActive)
-    }
+  const handleCreate = () => {
+    setIsActive(!isActive);
+  };
 
-
-    return (
-        <div className='input-bar-container'>
-            <button onClick={handleCreate} className={`task-create-btn ${isActive == true && 'hide'}`}>New Task +</button>
-             {isActive && <TodoForm/>}
-        </div>
-    )
+  return (
+    <div className="input-bar-container">
+      <button
+        onClick={handleCreate}
+        className={`todo__create-btn ${isActive == true && "hide"}`}
+      >
+        New Task +
+      </button>
+      {isActive && <TodoForm onCreate={handleCreate} />}
+    </div>
+  );
 }
 
-function TodoForm(){
-const [input,setInput] =useState('')
-console.log(input)
-return (
-     <form action="">
-        <textarea className='todo__input' onChange={(event)=>{setInput(event.target.value)}} defaultValue={input}  name="" id=""></textarea>
+function TodoForm({ onCreate }) {
+  const [input, setInput] = useState("");
 
-        <select name="categories" id="categories">
-    <option value="" disabled selected hidden>Priority Level</option>
-    <option value="Personal">Personal</option>
-    <option value="Home">Home</option>
-    <option value="Work">Work</option>
-    <option value="Others">Others</option>
-        </select>
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const taskContext = event.target[0].value;
+    const taskPriority = event.target[1].value;
+    const taskCategory = event.target[2].value;
 
-        <select name="urgency" id="urgency">
-            <option value="" disabled selected hidden>Priority Level</option>
-    <option value="low">Can Wait</option>
-    <option value="normal">Needs Attention</option>
-    <option value="urgent">Handle Immediately</option>
-        </select>
-                </form>
-)
+    const newTodo = {
+      id: Date.now(),
+      isComplete: false,
+      taskContext,
+      taskPriority,
+      taskCategory
+    };
+
+    onCreate();
+
+    setInput("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="todo__form">
+      <input
+        type="text"
+        className="todo__input"
+        onChange={(event) => {
+          setInput(event.target.value);
+        }}
+        value={input}
+      />
+      <section className="form__section">
+        <span>
+          <p>Urgency</p>
+          <select name="urgency" defaultValue={"low"} id="urgency">
+            <option value="Can Wait">Can Wait</option>
+            <option value="Needs Attention">Needs Attention</option>
+            <option value="Handle Immediately">Handle Immediately</option>
+          </select>
+        </span>
+        <span>
+          <p>Task Category</p>
+          <select name="categories" defaultValue={"Personal"} id="categories">
+            <option value="Personal">Personal</option>
+            <option value="Home">Home</option>
+            <option value="Work">Work</option>
+            <option value="Others">Others</option>
+          </select>
+        </span>
+      </section>
+      <button className="form__submit-btn">Create Task</button>
+    </form>
+  );
 }
-export default InputBar
+export default InputBar;
