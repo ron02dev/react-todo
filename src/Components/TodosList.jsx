@@ -81,22 +81,28 @@ function EditForm({ object }) {
 
 
   const handleEditTodo = (event, selected_id) => {
-    event.preventDefault();
 
-    const todoTitle = event.target[0].value;
-    const todoPriority = event.target[1].value;
-    const todoCategory = event.target[2].value;
-    
-    dispatch({
-      type: ACTIONS.SUBMIT_EDIT,
-      payload: {
-        id: selected_id,
-        todoTitle,
-        todoPriority,
-        todoCategory,
-      },
-    });
+        event.preventDefault();
+ 
+            const todoTitle = event.target[0].value;
+            if(todoTitle){
+            const todoPriority = event.target[1].value;
+            const todoCategory = event.target[2].value;
+            console.log(todoTitle,todoPriority,todoCategory)
+            dispatch({
+              type: ACTIONS.SUBMIT_EDIT,
+              payload: {
+                id: selected_id,
+                todoTitle,
+                todoPriority,
+                todoCategory,
+              },
+            });
+            }
+
   };
+
+
 
   const inputRef = useRef(null);
 
@@ -110,6 +116,7 @@ function EditForm({ object }) {
         onSubmit={(e) => {
           handleEditTodo(e, object.id);
         }}
+
         className="todo__form-edit"
       >
         <input
@@ -153,7 +160,9 @@ function EditForm({ object }) {
             </select>
           </span>
         </section>
-        <button className="form__submit-btn">Save Edit</button>
+        <button  onSubmit={(e) => {
+          handleEditTodo(e, object.id);
+        }}  className="form__submit-btn">Save Edit</button>
       </form>
     </>
   );
