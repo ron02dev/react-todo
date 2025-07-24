@@ -14,9 +14,7 @@ export const ACTIONS = {
 };
 
  export const todoUrgency = [
-    {
-      value : "low", label : "Can Wait 🔵"
-    },
+    {value : "low", label : "Can Wait 🟢"},
     {value : "normal", label : "Needs Attention 🟠"},
     {value : "urgent", label : "Handle Immediately 🔴"}
   ]
@@ -69,7 +67,8 @@ function reducer(todos, action) {
       case ACTIONS.SUBMIT_EDIT:
      return todos.map((todo) => {
         if (action.payload.id === todo.id) {
-          return { ...todo, isEditActive: !todo.isEditActive,...action.payload };
+          console.log("fired",action.payload)
+          return { ...todo,isEditActive: !todo.isEditActive,...action.payload };
         }
         return todo;
       });
@@ -90,7 +89,7 @@ function App() {
   
   // THE PROBLEM IS WHEN ITS ONLY ONE ITEM IT CAN BE DELETED
   const [todos, dispatch] = useReducer(reducer, []);
-  
+  console.log(todos)
   useEffect(()=>{
 
     console.log(todos.length)
