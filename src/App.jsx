@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import "./Styles/App.scss";
 import InputBar from "./Components/InputBar";
 import TodosList from "./Components/TodosList";
@@ -9,7 +9,8 @@ export const ACTIONS = {
   TOGGLE_AS_DONE: "done-todo",
   EDIT_TODO: "edit-todo",
   CLEAR_TODO: "clear-todo",
-  SUBMIT_EDIT: "submit-edit"
+  LOAD_TODO: "load-save",
+  SUBMIT_EDIT: "submit-edit",
 };
 
  export const todoUrgency = [
@@ -72,18 +73,50 @@ function reducer(todos, action) {
         }
         return todo;
       });
+      case ACTIONS.LOAD_TODO:
+          return action.payload;
+        break;
+      
   }
+ 
+  
 }
 
 export const globalDispatch = createContext(null);
 
+
 function App() {
+  
+  
+  
   const [todos, dispatch] = useReducer(reducer, []);
-    // console.log(todos)
+  
+  useEffect(()=>{
+
+  
+    if(todos.length){
+    localStorage.setItem('todos',JSON.stringify(todos))
+   console.log(JSON.parse(localStorage.getItem('todos')))
+    }
+
+  },[todos])
+
+
+  useEffect(()=>{
+
+    const getLocalTodo = JSON.parse(localStorage.getItem('todos'))
+    const newTodos = getLocalTodo.map((item)=>{
+          return item
+    })   
+    console.log(newTodos)
+     getLocalTodo && dispatch({ type: ACTIONS.LOAD_TODO, payload: getLocalTodo });
+    // console.log(getLocalTodo)
+  },[])
+ 
   return (
     <>
       <globalDispatch.Provider value={dispatch}>
-        <InputBar />
+        <InputBar todos={todos} />
         <TodosList todos={todos} />
       </globalDispatch.Provider>
     </>
