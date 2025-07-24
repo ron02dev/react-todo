@@ -7,9 +7,9 @@ export const ACTIONS = {
   ADD_TODO: "add-todo",
   DELETE_TODO: "delete-todo",
   TOGGLE_AS_DONE: "done-todo",
-  ADD_TO_CATEGORY_TODO: "add-to-category",
   EDIT_TODO: "edit-todo",
   CLEAR_TODO: "clear-todo",
+  SUBMIT_EDIT: "submit-edit"
 };
 
 function reducer(todos, action) {
@@ -38,9 +38,20 @@ function reducer(todos, action) {
       break;
 
     case ACTIONS.EDIT_TODO:
-      console.log(action.payload.id);
+      return todos.map((todo) => {
+        if (action.payload.id === todo.id) {
+          return { ...todo, isEditActive: !todo.isEditActive };
+        }
+        return todo;
+      });
       break;
-
+      case ACTIONS.SUBMIT_EDIT:
+     return todos.map((todo) => {
+        if (action.payload.id === todo.id) {
+          return { ...todo, isEditActive: !todo.isEditActive,...action.payload };
+        }
+        return todo;
+      });
   }
 }
 
@@ -60,23 +71,3 @@ function App() {
 }
 
 export default App;
-
-// function App() {
-
-//   function handleCreateTodo(inputText) {
-//     dispatch({ type: ACTIONS.ADD_TODO, payload: { inputText } });
-//   }
-
-//   console.log(todos);
-
-//   return (
-//     <>
-//     <dispatchContext.Provider value={dispatch}>
-//             <InputBar onCreate={handleCreateTodo}/>
-//       {todos && <TodosList todos={todos}/>}
-//     </dispatchContext.Provider>
-//     </>
-//   );
-// }
-
-// export default App;

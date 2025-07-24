@@ -37,6 +37,7 @@ function TodoForm({ onCreate}) {
       const newTodo = {
         id: Date.now(),
         isComplete: true,
+        isEditActive: false,
         todoTitle,
         todoPriority,
         todoCategory,

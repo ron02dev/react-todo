@@ -303,5 +303,59 @@ height: 1rem;
 
 
 
-// -------------------------------- MODAL
+// -------------------------------- EDIT
 
+
+.todo__form-edit{
+  padding: 15px;
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+
+
+  .form__submit-btn {
+    padding: 10px 25px;
+    background-color: $color-accent;
+    color: $color-text-primary;
+    border: none;
+    border-radius: 5px;
+  }
+
+
+
+  .todo__edit-input {
+    padding: 5px;
+    font-size: 1.4rem;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid $color-border;
+  }
+
+  .form__section {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 15px;
+
+    span {
+      select {
+        width: 100%;
+        padding: 5px;
+        background-color: $color-border;
+        color: $color-text-primary;
+        outline: none;
+        border: none;
+        font-size: $font-size-base;
+      }
+
+    }
+  }
+
+
+
+
+
+}
