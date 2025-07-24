@@ -29,17 +29,17 @@ function TodoForm({ onCreate}) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(event)
-    const taskTitle = event.target[0].value || null;
-    if (taskTitle) {
-      const taskPriority = event.target[1].value;
-      const taskCategory = event.target[2].value;
+    const todoTitle = event.target[0].value || null;
+    if (todoTitle) {
+      const todoPriority = event.target[1].value;
+      const todoCategory = event.target[2].value;
 
       const newTodo = {
         id: Date.now(),
         isComplete: true,
-        taskTitle,
-        taskPriority,
-        taskCategory,
+        todoTitle,
+        todoPriority,
+        todoCategory,
       };
 
       dispatch({ type: ACTIONS.ADD_TODO, payload: newTodo });

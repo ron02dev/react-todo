@@ -124,13 +124,19 @@ main {
 
 }
 
-*{
-  border: 1px solid white;
-}
+// *{
+//   border: 1px solid white;
+// }
+
+
+
+// =============================================
+
+
 
 // UL
 .todo__list-container {
-    padding: 15px;
+  padding: 15px;
   margin: 0;
   display: flex;
   flex-direction: row-reverse;
@@ -141,9 +147,11 @@ main {
   min-width: 10px;
   border: 1px solid white;
   
+  
+
 
   // LI
-  .todo__list {
+  .todo__item {
   border: 1px solid $color-border;
   padding: 15px;
   display: flex; 
@@ -155,10 +163,27 @@ main {
 
   }
   
-  .todo__input-container{
-    display: flex;
-    gap: 5px;
+  .todo__header-container{
     padding: 5px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    border: 3px solid $color-border;
+    border-radius: 5px;
+    p{
+      justify-self: center;
+      align-self: center;
+      color: $color-text-primary;
+      font-size: $font-size-xl;
+    }
+  }
+
+
+  .todo__controls-container{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    gap: 5px;
   }
 
 
@@ -177,23 +202,34 @@ main {
 
 
   // section
-  .form__section{
+  .todo__type-container{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 15px;
+   padding: 5px;
+
+    li{
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: $font-size-sm;
+      display: inline;
+    }
   }
 
 
-    .todo__select-urgency{
-      width: 55%;
+    .todo__priority{
+     background-color: $color-success;
     }
 
-    .todo__select-category{
-     width: 35%;
+    .todo__category{
+      background-color: $color-success;
     }
 
-
+    .todo__type-label{
+      color: $color-text-primary;
+    }
 
   // MISCELLANEOUS
     li{
@@ -264,3 +300,8 @@ height: 1rem;
   transform: scale(1) rotateY(360deg);
  }
 }
+
+
+
+// -------------------------------- MODAL
+
