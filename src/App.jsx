@@ -38,7 +38,6 @@ function reducer(todos, action) {
     case ACTIONS.ADD_TODO:
       return [...todos, action.payload];
       break;
-
     case ACTIONS.TOGGLE_AS_DONE:
       return todos.map((todo) => {
         if (action.payload.id === todo.id) {
@@ -49,6 +48,7 @@ function reducer(todos, action) {
       break;
 
     case ACTIONS.DELETE_TODO:
+      localStorage.clear()
       return todos.filter((todo) => {
         return todo.id !== action.payload.id;
       });
@@ -88,13 +88,14 @@ export const globalDispatch = createContext(null);
 function App() {
   
   
-  
+  // THE PROBLEM IS WHEN ITS ONLY ONE ITEM IT CAN BE DELETED
   const [todos, dispatch] = useReducer(reducer, []);
   
   useEffect(()=>{
 
-  
+    console.log(todos.length)
     if(todos.length){
+      localStorage.clear()
     localStorage.setItem('todos',JSON.stringify(todos))
    console.log(JSON.parse(localStorage.getItem('todos')))
     }
@@ -104,13 +105,18 @@ function App() {
 
   useEffect(()=>{
 
-    const getLocalTodo = JSON.parse(localStorage.getItem('todos'))
-    const newTodos = getLocalTodo.map((item)=>{
+    const getLocalTodo = JSON.parse(localStorage.getItem('todos')) || null
+
+    if(getLocalTodo){
+      const newTodos = getLocalTodo.map((item)=>{
           return item
-    })   
+    })  
     console.log(newTodos)
-     getLocalTodo && dispatch({ type: ACTIONS.LOAD_TODO, payload: getLocalTodo });
-    // console.log(getLocalTodo)
+     newTodos && dispatch({ type: ACTIONS.LOAD_TODO, payload: getLocalTodo });
+    console.log(getLocalTodo) 
+    }
+    
+    
   },[])
  
   return (

@@ -33,14 +33,6 @@ function TodosList({ todos }) {
                         }} className={`todo__title ${object.isComplete == true && 'complete'}`}>{object.todoTitle}</p>
                     <section className="todo__controls-container">
                       <button
-                      className="todo__delete-btn"
-                        onClick={() => {
-                          handleDeleteTodo(object.id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                      <button
                        className="todo__edit-btn"
                         onClick={() => {
                           handleEditTodo(object.id);
@@ -48,8 +40,15 @@ function TodosList({ todos }) {
                       >
                         Edit
                       </button>
+                         <button
+                      className="todo__delete-btn"
+                        onClick={() => {
+                          handleDeleteTodo(object.id);
+                        }}
+                      >
+                        Delete
+                      </button>
                     </section>
-          
                   </div>
                   <ul className="todo__type-container">  
                      {
