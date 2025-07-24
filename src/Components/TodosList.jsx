@@ -14,6 +14,7 @@ function TodosList({ todos }) {
     <main className="">
       <ul className="todo__list-container">
         {todos.map((object, id) => {
+          console.log(object.isComplete)
           return (
             <li key={id}>
               {object.isEditActive == false && (
@@ -33,7 +34,8 @@ function TodosList({ todos }) {
                         🛠️
                       </button>
                     </section>
-                    <p className="todo__title">{object.todoTitle}</p>
+                   
+                    <p className={`todo__title ${object.isComplete == true && 'complete'}`}>{object.todoTitle}</p>
                   </div>
                   <ul className="todo__type-container">
                     <li className="todo__priority">

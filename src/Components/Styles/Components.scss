@@ -136,7 +136,7 @@ main {
 
 // UL
 .todo__list-container {
-  padding: 15px;
+  padding: 5rem;
   margin: 0;
   display: flex;
   flex-direction: row-reverse;
@@ -145,7 +145,7 @@ main {
   gap: 15px;
   border-radius: 5px;
   min-width: 10px;
-  border: 1px solid white;
+  border-top: 1px solid white;
   
   
 
@@ -170,13 +170,22 @@ main {
     flex-wrap: wrap;
     border: 3px solid $color-border;
     border-radius: 5px;
-    p{
+
+    .todo__title{
       justify-self: center;
       align-self: center;
       color: $color-text-primary;
-      font-size: $font-size-xl;
+      font-size: $font-size-xl;   
     }
+
+     .complete{
+      text-decoration: line-through;
+      color: $color-accent;
+    }
+   
   }
+
+ 
 
 
   .todo__controls-container{
@@ -242,6 +251,7 @@ main {
 .hide  {
   display: none;
 }
+
 
 
 // checkbox
@@ -353,9 +363,6 @@ height: 1rem;
 
     }
   }
-
-
-
 
 
 }

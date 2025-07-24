@@ -59,7 +59,7 @@ export const globalDispatch = createContext(null);
 
 function App() {
   const [todos, dispatch] = useReducer(reducer, []);
-    console.log(todos)
+    // console.log(todos)
   return (
     <>
       <globalDispatch.Provider value={dispatch}>
