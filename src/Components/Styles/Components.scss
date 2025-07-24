@@ -130,7 +130,7 @@ main {
 
 
 
-// =============================================
+// ============================================= TODO LIST
 
 
 
@@ -164,18 +164,19 @@ main {
   }
   
   .todo__header-container{
-    padding: 5px;
+    padding: 0px 10px;
     display: flex;
-    gap: 15px;
     flex-wrap: wrap;
     border: 3px solid $color-border;
     border-radius: 5px;
+    justify-content: space-between;
 
     .todo__title{
       justify-self: center;
       align-self: center;
       color: $color-text-primary;
       font-size: $font-size-xl;   
+      cursor: pointer;
     }
 
      .complete{
@@ -183,6 +184,23 @@ main {
       color: $color-accent;
     }
    
+    .todo__edit-btn{
+      padding: 5px 15px;
+    background-color: $color-accent;
+    color: $color-text-primary;
+    border: none;
+    border-radius: 5px;
+    }
+
+
+    .todo__delete-btn{
+      padding: 5px 15px;
+    background-color: $color-error;
+    color: $color-text-primary;
+    border: none;
+    border-radius: 5px;
+    }
+
   }
 
  
@@ -252,64 +270,6 @@ main {
   display: none;
 }
 
-
-
-// checkbox
-.todo__input-checkbox{
- position: relative;
- align-self: center;
- justify-self: center;
-width: 1rem;
-height: 1rem;
- border-radius: 2px;
- appearance: none;
- background-color: #bbb;
- transition: all .3s;
-}
-
-.todo__input-checkbox::before {
- content: '';
- position: absolute;
- border: solid #fff;
- display: block;
- width: .3em;
- height: .6em;
- border-width: 0 .2em .2em 0;
- z-index: 1;
- opacity: 0;
- right: calc(50% - .3em);
- top: calc(50% - .6em);
- transform: rotate(0deg);
- transition: all .3s;
- transform-origin: center center;
-}
-
-.todo__input-checkbox:checked {
- animation: a .3s ease-in forwards;
- background-color: rgb(120, 190, 120);
-}
-
-.todo__input-checkbox:checked::before {
- opacity: 1;
- transform: rotate(405deg);
-}
-
-@keyframes a {
- 0% {
-  opacity: 1;
-  transform: scale(1) rotateY(0deg);
- }
-
- 50% {
-  opacity: 0;
-  transform: scale(.8) rotateY(180deg);
- }
-
- 100% {
-  opacity: 1;
-  transform: scale(1) rotateY(360deg);
- }
-}
 
 
 

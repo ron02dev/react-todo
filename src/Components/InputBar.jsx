@@ -1,7 +1,10 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import "./Styles/Components.scss";
-import { ACTIONS } from "../App";
+import { ACTIONS,todoCategory,todoUrgency } from "../App";
 import { globalDispatch } from "../App";
+
+
+
 
 function InputBar() {
   const [isActive, setIsActive] = useState(false);
@@ -22,21 +25,26 @@ function InputBar() {
   );
 }
 
+
+
+
 function TodoForm({ onCreate}) {
   const [input, setInput] = useState("");
   const dispatch = useContext(globalDispatch);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // console.log(event)
     const todoTitle = event.target[0].value || null;
+    console.log(event)
     if (todoTitle) {
       const todoPriority = event.target[1].value;
       const todoCategory = event.target[2].value;
 
       const newTodo = {
         id: Date.now(),
-        isComplete: true,
+        isComplete: false,
         isEditActive: false,
         todoTitle,
         todoPriority,
@@ -61,6 +69,10 @@ function TodoForm({ onCreate}) {
     inputRef.current.focus();
   },[])
 
+
+
+
+
   return (
     <form onSubmit={handleSubmit} className="todo__form">
       <input
@@ -76,18 +88,28 @@ function TodoForm({ onCreate}) {
         <span>
           
           <select name="urgency" defaultValue={"low"} id="urgency">
-            <option value="Can Wait">Can Wait</option>
-            <option value="Needs Attention">Needs Attention</option>
-            <option value="Handle Immediately">Handle Immediately</option>
+
+            {todoUrgency.map((object,id)=>{
+
+              return(
+                  <option key={id} value={object.value}>{object.label}</option>
+              )
+
+            })}
+
           </select>
         </span>
         <span>
           
-          <select name="categories" defaultValue={"Personal"} id="categories">
-            <option value="Personal">Personal</option>
-            <option value="Home">Home</option>
-            <option value="Work">Work</option>
-            <option value="Others">Others</option>
+          <select name="categories" defaultValue={"personal"} id="categories">
+           
+            {todoCategory.map((object,id)=>{
+
+              return(
+                  <option key={id} value={object.value}>{object.label}</option>
+              )
+
+            })}
           </select>
         </span>
       </section>

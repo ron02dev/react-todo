@@ -12,6 +12,26 @@ export const ACTIONS = {
   SUBMIT_EDIT: "submit-edit"
 };
 
+ export const todoUrgency = [
+    {
+      value : "low", label : "Can Wait 🔵"
+    },
+    {value : "normal", label : "Needs Attention 🟠"},
+    {value : "urgent", label : "Handle Immediately 🔴"}
+  ]
+
+   export const todoCategory = [
+    {
+      value : "personal", label : "Personal 👨🏻"
+    },
+    {value : "home", label : "Home 🏠"},
+    {value : "work", label : "Work 💼"},
+    {value : "others", label : "Others 👽"},
+
+  ]
+
+
+
 function reducer(todos, action) {
   switch (action.type) {
     case ACTIONS.ADD_TODO:

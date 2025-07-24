@@ -1,6 +1,6 @@
 import { useState, useContext, useRef, useEffect } from "react";
 import "./Styles/Components.scss";
-import { ACTIONS } from "../App";
+import { ACTIONS,todoCategory,todoUrgency} from "../App";
 import { globalDispatch } from "../App";
 
 function TodosList({ todos }) {
@@ -10,40 +10,58 @@ function TodosList({ todos }) {
     dispatch({ type: ACTIONS.EDIT_TODO, payload: { id: selected_id } });
   };
 
+  const handleDeleteTodo = (selected_id)=>{
+      dispatch({ type: ACTIONS.DELETE_TODO, payload: { id: selected_id } });
+  }
+
+  const handleToggleAsDoneTodo = (selected_id)=>{
+        dispatch({ type: ACTIONS.TOGGLE_AS_DONE, payload: { id: selected_id } });
+  }
+
   return (
     <main className="">
       <ul className="todo__list-container">
         {todos.map((object, id) => {
-          console.log(object.isComplete)
+         
           return (
             <li key={id}>
               {object.isEditActive == false && (
                 <div className="todo__item">
                   <div className="todo__header-container">
+                                        <p onClick={() => {
+                          handleToggleAsDoneTodo(object.id)
+                        }} className={`todo__title ${object.isComplete == true && 'complete'}`}>{object.todoTitle}</p>
                     <section className="todo__controls-container">
-                      <input
-                        className="todo__input-checkbox"
-                        type="checkbox"
-                        defaultChecked={object.isComplete}
-                      />
                       <button
+                      className="todo__delete-btn"
+                        onClick={() => {
+                          handleDeleteTodo(object.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                      <button
+                       className="todo__edit-btn"
                         onClick={() => {
                           handleEditTodo(object.id);
                         }}
                       >
-                        🛠️
+                        Edit
                       </button>
                     </section>
-                   
-                    <p className={`todo__title ${object.isComplete == true && 'complete'}`}>{object.todoTitle}</p>
+          
                   </div>
-                  <ul className="todo__type-container">
-                    <li className="todo__priority">
-                      Urgency: {object.todoPriority}
-                    </li>
-                    <li className="todo__category">
-                      Category: {object.todoCategory}
-                    </li>
+                  <ul className="todo__type-container">  
+                     {
+                   todoUrgency.map((item,id)=>{
+                    return item.value === object.todoPriority ? <li key={id} className="todo__priority">Urgency: {item.label}</li> : '';
+                      })
+                      }
+                        {
+                   todoCategory.map((item,id)=>{
+                    return item.value === object.todoCategory ? <li key={id} className="todo__category">Urgency: {item.label}</li> : '';
+                      })
+                      }
                   </ul>
                 </div>
               )}
@@ -69,7 +87,7 @@ function EditForm({ object }) {
     const todoTitle = event.target[0].value;
     const todoPriority = event.target[1].value;
     const todoCategory = event.target[2].value;
-
+    
     dispatch({
       type: ACTIONS.SUBMIT_EDIT,
       payload: {
@@ -111,9 +129,13 @@ function EditForm({ object }) {
               defaultValue={object.todoPriority}
               id="urgency"
             >
-              <option value="Can Wait">Can Wait</option>
-              <option value="Needs Attention">Needs Attention</option>
-              <option value="Handle Immediately">Handle Immediately</option>
+               {todoUrgency.map((object,id)=>{
+
+              return(
+                  <option key={id} value={object.value}>{object.label}</option>
+              )
+
+            })}
             </select>
           </span>
           <span>
@@ -122,10 +144,13 @@ function EditForm({ object }) {
               defaultValue={object.todoCategory}
               id="categories"
             >
-              <option value="Personal">Personal</option>
-              <option value="Home">Home</option>
-              <option value="Work">Work</option>
-              <option value="Others">Others</option>
+                  {todoCategory.map((object,id)=>{
+
+              return(
+                  <option key={id} value={object.value}>{object.label}</option>
+              )
+
+            })}
             </select>
           </span>
         </section>
