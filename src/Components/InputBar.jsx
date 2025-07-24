@@ -36,7 +36,7 @@ function TodoForm({ onCreate}) {
 
       const newTodo = {
         id: Date.now(),
-        isComplete: false,
+        isComplete: true,
         taskTitle,
         taskPriority,
         taskCategory,

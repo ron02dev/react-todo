@@ -34,10 +34,9 @@ h6 {
   font-size: $font-size-xs;
 }
 
-// Base Colors
-$color-primary: #1e88e5; // Blue
-$color-secondary: #c2185b; // Pink/Red Accent
-$color-accent: #ffb300; // Amber
+$color-primary: #abbfd1;        // Soft Gray (formerly dark gray/blue)
+$color-secondary: #f48fb1;     // Soft Pink (formerly strong pink/red)
+$color-accent: #0A7029;  
 
 // Backgrounds & Surfaces
 $color-bg: #121212; // True dark background
@@ -119,28 +118,149 @@ $color-error: #ef5350;
 }
 
 main {
-  padding: 5px;
+
   height: 100%;
-   flex: 1;
-}
-.todo__list-container {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: start;
-  flex-wrap: wrap-reverse;
-  gap: 15px;
-  padding: 15px;
-  .item {
-    background-color: $color-surface;
-    border: 1px solid $color-accent;
-    color: $color-text-primary;
-    list-style: none;
-    padding: 15px;
-    border-radius: 1rem;
-    min-height: 3rem;
-  }
+ flex: 2;
+
 }
 
-.hide {
+*{
+  border: 1px solid white;
+}
+
+// UL
+.todo__list-container {
+    padding: 15px;
+  margin: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  flex-wrap: wrap-reverse;
+  gap: 15px;
+  border-radius: 5px;
+  min-width: 10px;
+  border: 1px solid white;
+  
+
+  // LI
+  .todo__list {
+  border: 1px solid $color-border;
+  padding: 15px;
+  display: flex; 
+  flex-direction: column;
+  background-color: $color-surface;
+  border-radius: 5px;
+  padding: 15px;
+  gap: 10px;
+
+  }
+  
+  .todo__input-container{
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+  }
+
+
+  // INPUT
+  .todo__input-text-input{
+
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.5rem;
+    background-color: $color-primary;
+    outline: none;
+    border: none;
+    width: inherit;
+  }
+
+
+
+  // section
+  .form__section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+
+    .todo__select-urgency{
+      width: 55%;
+    }
+
+    .todo__select-category{
+     width: 35%;
+    }
+
+
+
+  // MISCELLANEOUS
+    li{
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+}
+
+.hide  {
   display: none;
+}
+
+
+// checkbox
+.todo__input-checkbox{
+ position: relative;
+ align-self: center;
+ justify-self: center;
+width: 1rem;
+height: 1rem;
+ border-radius: 2px;
+ appearance: none;
+ background-color: #bbb;
+ transition: all .3s;
+}
+
+.todo__input-checkbox::before {
+ content: '';
+ position: absolute;
+ border: solid #fff;
+ display: block;
+ width: .3em;
+ height: .6em;
+ border-width: 0 .2em .2em 0;
+ z-index: 1;
+ opacity: 0;
+ right: calc(50% - .3em);
+ top: calc(50% - .6em);
+ transform: rotate(0deg);
+ transition: all .3s;
+ transform-origin: center center;
+}
+
+.todo__input-checkbox:checked {
+ animation: a .3s ease-in forwards;
+ background-color: rgb(120, 190, 120);
+}
+
+.todo__input-checkbox:checked::before {
+ opacity: 1;
+ transform: rotate(405deg);
+}
+
+@keyframes a {
+ 0% {
+  opacity: 1;
+  transform: scale(1) rotateY(0deg);
+ }
+
+ 50% {
+  opacity: 0;
+  transform: scale(.8) rotateY(180deg);
+ }
+
+ 100% {
+  opacity: 1;
+  transform: scale(1) rotateY(360deg);
+ }
 }
