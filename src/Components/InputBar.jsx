@@ -77,6 +77,7 @@ function TodoForm({ onCreate}) {
     <form onSubmit={handleSubmit} className="todo__form">
       <input
         ref={inputRef}
+        maxLength={30}
         type="text"
         className="todo__input"
         onChange={(event) => {

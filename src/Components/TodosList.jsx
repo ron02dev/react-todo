@@ -54,12 +54,12 @@ function TodosList({ todos }) {
                   <ul className="todo__type-container">  
                      {
                    todoUrgency.map((item,id)=>{
-                    return item.value === object.todoPriority ? <li key={id} className="todo__priority">Urgency: {item.label}</li> : '';
+                    return item.value === object.todoPriority ? <li key={id} className="todo__priority">Priority: {item.label}</li> : '';
                       })
                       }
                         {
                    todoCategory.map((item,id)=>{
-                    return item.value === object.todoCategory ? <li key={id} className="todo__category">Urgency: {item.label}</li> : '';
+                    return item.value === object.todoCategory ? <li key={id} className="todo__category">Category: {item.label}</li> : '';
                       })
                       }
                   </ul>

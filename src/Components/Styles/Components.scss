@@ -64,7 +64,7 @@ $color-error: #ef5350;
 
 
   .todo__create-btn{
-    font-size: $font-size-xl;
+    font-size: $font-size-lg;
     font-weight: $font-weight-bold;
   }
 
@@ -72,7 +72,7 @@ $color-error: #ef5350;
 
   .todo__create-btn,
   .form__submit-btn {
-    padding: 10px 25px;
+    padding: 10px 15px;
     background-color: $color-accent;
     color: $color-text-primary;
   }
@@ -150,7 +150,7 @@ main {
   
 
 
-  // LI
+// ON DISPLAY DIV
   .todo__item {
   border: 1px solid $color-border;
   padding: 15px;
@@ -161,6 +161,7 @@ main {
   padding: 15px;
   gap: 10px;
 
+
   }
   
   .todo__header-container{
@@ -170,6 +171,7 @@ main {
     border: 3px solid $color-border;
     border-radius: 5px;
     justify-content: space-between;
+    
 
     .todo__title{
       justify-self: center;
@@ -177,6 +179,7 @@ main {
       color: $color-text-primary;
       font-size: $font-size-xl;   
       cursor: pointer;
+      overflow: auto;
     }
 
      .complete{
@@ -185,7 +188,7 @@ main {
     }
    
     .todo__edit-btn{
-      padding: 5px 15px;
+      padding: 3px 15px;
     background-color: $color-accent;
     color: $color-text-primary;
     border: none;
@@ -194,7 +197,7 @@ main {
 
 
     .todo__delete-btn{
-      padding: 5px 15px;
+      padding: 3px 15px;
     background-color: $color-error;
     color: $color-text-primary;
     border: none;
@@ -209,7 +212,7 @@ main {
   .todo__controls-container{
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 10px;
     gap: 5px;
   }
 
