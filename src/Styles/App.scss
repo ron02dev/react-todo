@@ -66,7 +66,6 @@ body {
 }
 
 * {
- 
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -87,4 +86,35 @@ body {
     align-items: center;
     align-self: center;
   }
+}
+
+
+
+main {
+  // FILTER SELECT CONTAINER
+  .todo__form-filter {
+ 
+    padding: 5px;
+    display: flex;
+     max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    justify-self: center;
+    align-self: end;
+    gap: 15px;
+    
+  }
+
+     select {
+        width: 100%;
+        padding: 10px;
+        background-color: $color-border;
+        color: $color-text-primary;
+        outline: none;
+        border: none;
+        font-size: $font-size-base;
+        border-radius: 5px;
+        
+      }
 }

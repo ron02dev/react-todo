@@ -11,7 +11,7 @@ export const ACTIONS = {
   CLEAR_TODO: "clear-todo",
   LOAD_TODO: "load-save",
   SUBMIT_EDIT: "submit-edit",
-  FILTER_TODO: "filter-todo"
+  FILTER_TODO: "filter-todo",
 };
 
 export const todoUrgency = [
@@ -83,53 +83,53 @@ function reducer(todos, action) {
 
 export const globalDispatch = createContext(null);
 function App() {
-  // THE PROBLEM IS WHEN ITS ONLY ONE ITEM IT CAN BE DELETED
+  
   const [todos, dispatch] = useReducer(reducer, []);
-  const [filterTodo,setFilterTodo] = useState()
+  const [filterTodo, setFilterTodo] = useState();
 
-//   useEffect(()=>{
-    
-//     if(todos.length){
-//       localStorage.clear()
-//     localStorage.setItem('todos',JSON.stringify(todos))
-//    console.log(JSON.parse(localStorage.getItem('todos')))
-//     }
+    useEffect(()=>{
 
-//   },[todos])
+      if(todos.length){
+        localStorage.clear()
+      localStorage.setItem('todos',JSON.stringify(todos))
+     console.log(JSON.parse(localStorage.getItem('todos')))
+      }
 
-//   useEffect(()=>{
+    },[todos])
 
-//     const getLocalTodo = JSON.parse(localStorage.getItem('todos')) || null
+    useEffect(()=>{
 
-//     if(getLocalTodo){
-//       const newTodos = getLocalTodo.map((item)=>{
-//           return item
-//     })
-//     console.log(newTodos)
-//      newTodos && dispatch({ type: ACTIONS.LOAD_TODO, payload: getLocalTodo });
-//     console.log(getLocalTodo)
-//     }
-// console.log(todos);
-//   },[])
+      const getLocalTodo = JSON.parse(localStorage.getItem('todos')) || null
 
-  function handleFilter(todoPriority,todoCategory){
+      if(getLocalTodo){
+        const newTodos = getLocalTodo.map((item)=>{
+            return item
+      })
+      console.log(newTodos)
+       newTodos && dispatch({ type: ACTIONS.LOAD_TODO, payload: getLocalTodo });
+      console.log(getLocalTodo)
+      }
+  console.log(todos);
+    },[])
 
-      const filter = [
-      todoPriority,todoCategory
-    ]
-   
-    console.log("🚀 ~ handleFilter ~ filter:", filter)
+  function handleFilter(todoPriority, todoCategory) {
+    const filter = [todoPriority, todoCategory];
 
-       setFilterTodo(filter)
+    console.log("🚀 ~ handleFilter ~ filter:", filter);
+
+    setFilterTodo(filter);
   }
-
 
   return (
     <>
       <globalDispatch.Provider value={dispatch}>
-        <InputBar todos={todos} />
-        <TodosList filterTodo={filterTodo}  todos={todos} />
-        <FilterBar  handleFilter={handleFilter} />
+      
+          <InputBar todos={todos} />
+          
+        <main className="main__todo-list">
+                   <FilterBar handleFilter={handleFilter} />
+                   <TodosList filterTodo={filterTodo} todos={todos} />
+        </main>
       </globalDispatch.Provider>
     </>
   );

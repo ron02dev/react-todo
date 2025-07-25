@@ -1,6 +1,4 @@
-import { ACTIONS, todoCategory, todoUrgency } from "../App";
-import { useState, useContext, useRef, useEffect} from "react";
-import { globalDispatch } from "../App";
+import { todoCategory, todoUrgency } from "../App";
 import {useForm} from "react-hook-form"
 function FilterBar({handleFilter}) {
 

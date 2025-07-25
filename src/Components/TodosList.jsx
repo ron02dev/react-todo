@@ -8,7 +8,6 @@ function TodosList({ todos, filterTodo }) {
   const dispatch = useContext(globalDispatch);
   const [displayTodo, setDisplayTodo] = useState([]);
 
-
   const handleEditTodo = (selected_id) => {
     dispatch({ type: ACTIONS.EDIT_TODO, payload: { id: selected_id } });
   };
@@ -21,15 +20,12 @@ function TodosList({ todos, filterTodo }) {
     dispatch({ type: ACTIONS.TOGGLE_AS_DONE, payload: { id: selected_id } });
   };
 
-
-
   useEffect(() => {
-  if (filterTodo) {
+    if (filterTodo) {
       const priority_type = filterTodo[0];
       const category_type = filterTodo[1];
-   
-      if (priority_type !== 'all' && category_type === 'all' ) {
 
+      if (priority_type !== "all" && category_type === "all") {
         const filteredTodo = todos.filter((item) => {
           if (item.todoPriority === priority_type) {
             return item;
@@ -37,194 +33,144 @@ function TodosList({ todos, filterTodo }) {
         });
         console.log("TODOLIST - FILTERED RESULTS", filteredTodo);
 
-        setDisplayTodo(filteredTodo)
-      } else if (category_type !== 'all' && priority_type === 'all') {
-
+        setDisplayTodo(filteredTodo);
+      } else if (category_type !== "all" && priority_type === "all") {
         const filteredTodo = todos.filter((item) => {
           if (item.todoCategory === category_type) {
             return item;
           }
         });
         console.log("TODOLIST - FILTERED RESULTS", filteredTodo);
-        setDisplayTodo(filteredTodo)
-      }else if(priority_type !== 'all' && category_type !== 'all' ){
-          const filteredTodo = todos.filter((item) => {
-          if (item.todoPriority === priority_type && item.todoCategory === category_type) {
+        setDisplayTodo(filteredTodo);
+      } else if (priority_type !== "all" && category_type !== "all") {
+        const filteredTodo = todos.filter((item) => {
+          if (
+            item.todoPriority === priority_type &&
+            item.todoCategory === category_type
+          ) {
             return item;
           }
         });
-        console.log("TODOLIST - FILTERED RESULTS", filteredTodo); 
-        setDisplayTodo(filteredTodo)
-      }else if(priority_type == 'all' && category_type == 'all' ){
-           const filteredTodo = todos.filter((item) => {
-            return item;
-          
+        console.log("TODOLIST - FILTERED RESULTS", filteredTodo);
+        setDisplayTodo(filteredTodo);
+      } else if (priority_type == "all" && category_type == "all") {
+        const filteredTodo = todos.filter((item) => {
+          return item;
         });
-        console.log("TODOLIST - FILTERED RESULTS", filteredTodo); 
-        setDisplayTodo(filteredTodo)
-      }else{
-        console.log("somethings wornf")
+        console.log("TODOLIST - FILTERED RESULTS", filteredTodo);
+        setDisplayTodo(filteredTodo);
+      } else {
+        console.log("somethings wornf");
       }
-
-      
     }
   }, [filterTodo]);
 
-
-
-  useEffect(()=>{
-      setDisplayTodo(todos)
-  },[todos])
-
-
+  useEffect(() => {
+    setDisplayTodo(todos);
+  }, [todos]);
 
   return (
-    <main className="">
-      <ul className="todo__list-container">
-
-
-          { displayTodo && displayTodo.map((object, id) => {
-                  return (
-                    <li key={id}>
-                      {object.isEditActive == false && (
-                        <div className="todo__item">
-                          <div className="todo__header-container">
-                            <p
-                              onClick={() => {
-                                handleToggleAsDoneTodo(object.id);
-                              }}
-                              className={`todo__title ${
-                                object.isComplete == true && "complete"
-                              }`}
-                            >
-                              {object.todoTitle}
-                            </p>
-                            <section className="todo__controls-container">
-                              <button
-                                className="todo__edit-btn"
-                                onClick={() => {
-                                  handleEditTodo(object.id);
-                                }}
-                              >
-                                Edit
-                              </button>
-                              <button
-                                className="todo__delete-btn"
-                                onClick={() => {
-                                  handleDeleteTodo(object.id);
-                                }}
-                              >
-                                Delete
-                              </button>
-                            </section>
-                          </div>
-                          <ul className="todo__type-container">
-                            {todoUrgency.map((item, id) => {
-                              return item.value === object.todoPriority ? (
-                                <li key={id} className="todo__priority">
-                                  Priority: {item.label}
-                                </li>
-                              ) : (
-                                ""
-                              );
-                            })}
-                            {todoCategory.map((item, id) => {
-                              return item.value === object.todoCategory ? (
-                                <li key={id} className="todo__category">
-                                  Category: {item.label}
-                                </li>
-                              ) : (
-                                ""
-                              );
-                            })}
-                          </ul>
-                        </div>
-                      )}
-
-                      {object.isEditActive == true && <EditForm object={object} />}
-                    </li>
-                  );
-                }) 
-                
-                
-                }
-
-
-
-        {/* {  todos.map((object, id) => {
-                  return (
-                    <li key={id}>
-                      {object.isEditActive == false && (
-                        <div className="todo__item">
-                          <div className="todo__header-container">
-                            <p
-                              onClick={() => {
-                                handleToggleAsDoneTodo(object.id);
-                              }}
-                              className={`todo__title ${
-                                object.isComplete == true && "complete"
-                              }`}
-                            >
-                              {object.todoTitle}
-                            </p>
-                            <section className="todo__controls-container">
-                              <button
-                                className="todo__edit-btn"
-                                onClick={() => {
-                                  handleEditTodo(object.id);
-                                }}
-                              >
-                                Edit
-                              </button>
-                              <button
-                                className="todo__delete-btn"
-                                onClick={() => {
-                                  handleDeleteTodo(object.id);
-                                }}
-                              >
-                                Delete
-                              </button>
-                            </section>
-                          </div>
-                          <ul className="todo__type-container">
-                            {todoUrgency.map((item, id) => {
-                              return item.value === object.todoPriority ? (
-                                <li key={id} className="todo__priority">
-                                  Priority: {item.label}
-                                </li>
-                              ) : (
-                                ""
-                              );
-                            })}
-                            {todoCategory.map((item, id) => {
-                              return item.value === object.todoCategory ? (
-                                <li key={id} className="todo__category">
-                                  Category: {item.label}
-                                </li>
-                              ) : (
-                                ""
-                              );
-                            })}
-                          </ul>
-                        </div>
-                      )}
-
-                      {object.isEditActive == true && <EditForm object={object} />}
-                    </li>
-                  );
-                })} */}
-      </ul>
-    </main>
+    <ul className="todo__list-container">
+      {displayTodo.length ? <TodoItem handleToggleAsDoneTodo={handleToggleAsDoneTodo} handleDeleteTodo={handleDeleteTodo} handleEditTodo={handleEditTodo} displayTodo={displayTodo} /> : <TodoMessage/>
+        
+        }
+    </ul>
   );
 }
+
+function TodoMessage(){
+
+  return(
+      <>
+      <div className="todo__message-container">
+      <h1 className="todo__h1-message">You're all caught up! 🎉</h1>
+      <p className="todo__h1-message"><em>Add a new task when you're ready.</em></p>
+      </div>
+
+      </>
+  )
+}
+
+function TodoItem({displayTodo,handleEditTodo,handleDeleteTodo,handleToggleAsDoneTodo}){
+
+  return( <>
+      {displayTodo.map((object, id) => {
+          return (
+            <li
+            
+              key={id}
+            >
+              {object.isEditActive == false && (
+                <div className="todo__item">
+                  <section className="todo__controls-container">
+                    <button
+                      className="todo__edit-btn"
+                      onClick={() => {
+                        handleEditTodo(object.id);
+                      }}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      className="todo__delete-btn"
+                      onClick={() => {
+                        handleDeleteTodo(object.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </section>
+
+                  <div className="todo__header-container">
+                    <p
+                      onClick={() => {
+                        handleToggleAsDoneTodo(object.id);
+                      }}
+                      className={`todo__title ${
+                        object.isComplete == true && "complete"
+                      }`}
+                    >
+                      {object.todoTitle}
+                    </p>
+                  </div>
+                  <ul className="todo__type-container">
+                    {todoUrgency.map((item, id) => {
+                      return item.value === object.todoPriority ? (
+                        <li key={id} className="todo__priority">
+                          Priority: {item.label}
+                        </li>
+                      ) : (
+                        ""
+                      );
+                    })}
+                    {todoCategory.map((item, id) => {
+                      return item.value === object.todoCategory ? (
+                        <li key={id} className="todo__category">
+                          Category: {item.label}
+                        </li>
+                      ) : (
+                        ""
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+
+              {object.isEditActive == true && <EditForm object={object} />}
+            </li>
+          );
+        })}
+  </>)
+   
+}
+
 
 function EditForm({ object }) {
   const dispatch = useContext(globalDispatch);
   const { register, handleSubmit } = useForm({
     mode: "all",
   });
-
-  //  localStorage.clear()
 
   function onSubmit(data) {
     const id = Number(data.id);

@@ -34,9 +34,9 @@ h6 {
   font-size: $font-size-xs;
 }
 
-$color-primary: #abbfd1;        // Soft Gray (formerly dark gray/blue)
-$color-secondary: #f48fb1;     // Soft Pink (formerly strong pink/red)
-$color-accent: #0A7029;  
+$color-primary: #abbfd1; // Soft Gray (formerly dark gray/blue)
+$color-secondary: #f48fb1; // Soft Pink (formerly strong pink/red)
+$color-accent: #0a7029;
 
 // Backgrounds & Surfaces
 $color-bg: #121212; // True dark background
@@ -56,32 +56,41 @@ $color-warning: #ffa726;
 $color-error: #ef5350;
 
 .input-bar-container {
+ 
   padding: 5px;
-  background-color: $color-surface;
-  border: 1px solid $color-border;
+
   border-radius: 5px;
 
-
-
-  .todo__create-btn{
+  .todo__create-btn {
     font-size: $font-size-lg;
     font-weight: $font-weight-bold;
+    border: none;
+    border-radius: 5px;
+    background-color: $color-warning;
   }
 
-
+  .form__submit-btn {
+    border-radius: 5rem;
+    background-color: $color-warning;
+    color: $color-text-primary;
+  }
 
   .todo__create-btn,
   .form__submit-btn {
     padding: 10px 15px;
-    background-color: $color-accent;
-    color: $color-text-primary;
+    
+
+    border: none;
   }
 
   .todo__form {
+     max-width: 90vw;
     display: flex;
     flex-direction: column;
     gap: 15px;
     padding: 15px;
+    background-color: $color-surface;
+    border: 1px solid $color-border;
   }
 
   .todo__input {
@@ -118,108 +127,105 @@ $color-error: #ef5350;
 }
 
 main {
-
   height: 100%;
- flex: 2;
-
+  flex: 2;
 }
 
 // *{
 //   border: 1px solid white;
 // }
 
-
-
 // ============================================= TODO LIST
-
-
 
 // UL
 .todo__list-container {
+
   padding: 5rem;
   margin: 0;
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
   flex-wrap: wrap-reverse;
-  gap: 15px;
+  gap: 55px;
   border-radius: 5px;
-  min-width: 10px;
-  border-top: 1px solid white;
-  
   
 
-
-// ON DISPLAY DIV
+  // ON DISPLAY DIV
   .todo__item {
-  border: 1px solid $color-border;
-  padding: 15px;
-  display: flex; 
-  flex-direction: column;
-  background-color: $color-surface;
-  border-radius: 5px;
-  padding: 15px;
-  gap: 10px;
-
-
-  }
-  
-  .todo__header-container{
-    padding: 0px 10px;
+    min-width: 250px;
+    border: 1px solid $color-border;
+    padding: 15px;
     display: flex;
-    flex-wrap: wrap;
-    border: 3px solid $color-border;
-    border-radius: 5px;
-    justify-content: space-between;
+    flex-direction: column;
+    background-color: $color-surface;
+    border-radius: 15px;
     
+    gap: 10px;
+  }
 
-    .todo__title{
+  // DIV CONTAINER
+  .todo__header-container {
+   display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+   justify-content: space-between;
+   gap: 15px;
+   padding: 10px;
+   border-radius: 5px;
+  border: 1px solid $color-warning;
+ 
+
+// P
+
+  
+  }
+
+//  SECTION
+    .todo__controls-container{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-content: center;
+      width: inherit;
+      gap: 5px;
+       
+      }
+
+    .todo__edit-btn {
+      padding: 3px 15px;
+      background-color: $color-warning;
+      color: $color-text-primary;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .todo__delete-btn {
+      padding: 3px 15px;
+      background-color: $color-error;
+      color: $color-text-primary;
+      border: none;
+      border-radius: 5px;
+    }
+
+
+    .todo__title {
       justify-self: center;
       align-self: center;
       color: $color-text-primary;
-      font-size: $font-size-xl;   
+      font-size: 2vh;
       cursor: pointer;
       overflow: auto;
+      font-weight: bold;
+     
+      
     }
 
-     .complete{
+    .complete {
       text-decoration: line-through;
-      color: $color-accent;
+      color: $color-warning;
     }
-   
-    .todo__edit-btn{
-      padding: 3px 15px;
-    background-color: $color-accent;
-    color: $color-text-primary;
-    border: none;
-    border-radius: 5px;
-    }
-
-
-    .todo__delete-btn{
-      padding: 3px 15px;
-    background-color: $color-error;
-    color: $color-text-primary;
-    border: none;
-    border-radius: 5px;
-    }
-
-  }
-
- 
-
-
-  .todo__controls-container{
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    gap: 5px;
-  }
-
-
   // INPUT
-  .todo__input-text-input{
-
+  .todo__input-text-input {
     border-radius: 5px;
     padding: 10px;
     font-size: 1.5rem;
@@ -229,18 +235,16 @@ main {
     width: inherit;
   }
 
-
-
   // section
-  .todo__type-container{
+  .todo__type-container {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
+   
     gap: 15px;
-   padding: 5px;
+    
 
-    li{
+    li {
+     
       border-radius: 5px;
       padding: 5px 10px;
       font-size: $font-size-sm;
@@ -248,38 +252,33 @@ main {
     }
   }
 
+  .todo__priority {
+    background-color: $color-warning;
+  }
 
-    .todo__priority{
-     background-color: $color-success;
-    }
+  .todo__category {
+   background-color: $color-warning;
+  }
 
-    .todo__category{
-      background-color: $color-success;
-    }
-
-    .todo__type-label{
-      color: $color-text-primary;
-    }
+  .todo__type-label {
+    color: $color-text-primary;
+  }
 
   // MISCELLANEOUS
-    li{
-      padding: 0;
-      margin: 0;
-      list-style: none;
-    }
+  li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
 }
 
-.hide  {
+.hide {
   display: none;
 }
 
-
-
-
 // -------------------------------- EDIT
 
-
-.todo__form-edit{
+.todo__form-edit {
   padding: 15px;
   background-color: $color-surface;
   border: 1px solid $color-border;
@@ -288,17 +287,13 @@ main {
   flex-direction: column;
   gap: 10px;
 
-
-
   .form__submit-btn {
     padding: 10px 25px;
-    background-color: $color-accent;
+    background-color: $color-warning;
     color: $color-text-primary;
     border: none;
     border-radius: 5px;
   }
-
-
 
   .todo__edit-input {
     padding: 5px;
@@ -323,9 +318,28 @@ main {
         border: none;
         font-size: $font-size-base;
       }
-
     }
   }
+}
 
 
+.todo__message-container{
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  color: $color-text-primary;
+  text-align: center;
+  border: 1px solid white;
+  border-radius: 15px;
+  padding: 25px;
+  gap: 15px;
+  
+  h1{
+    color: $color-warning;
+    font-size: 5vh;
+  }
+  p{
+    color: $color-text-disabled;
+  }
 }
