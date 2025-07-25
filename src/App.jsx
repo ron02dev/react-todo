@@ -122,6 +122,7 @@ function App() {
 
   return (
     <>
+    <header><h1 className="todo__header-title">📌Todo App </h1></header>
       <globalDispatch.Provider value={dispatch}>
       
           <InputBar todos={todos} />

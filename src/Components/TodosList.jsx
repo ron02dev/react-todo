@@ -31,17 +31,27 @@ function TodosList({ todos, filterTodo }) {
             return item;
           }
         });
-        console.log("TODOLIST - FILTERED RESULTS", filteredTodo);
 
-        setDisplayTodo(filteredTodo);
+        const filterByCompleted = filteredTodo.sort((a, b) => {
+          if (a.isComplete && !b.isComplete) return -1;
+          if (!a.isComplete && b.isComplete) return 1;
+          return 0;
+        });
+
+        setDisplayTodo(filterByCompleted);
       } else if (category_type !== "all" && priority_type === "all") {
         const filteredTodo = todos.filter((item) => {
           if (item.todoCategory === category_type) {
             return item;
           }
         });
-        console.log("TODOLIST - FILTERED RESULTS", filteredTodo);
-        setDisplayTodo(filteredTodo);
+        const filterByCompleted = filteredTodo.sort((a, b) => {
+          if (a.isComplete && !b.isComplete) return -1;
+          if (!a.isComplete && b.isComplete) return 1;
+          return 0;
+        });
+
+        setDisplayTodo(filterByCompleted);
       } else if (priority_type !== "all" && category_type !== "all") {
         const filteredTodo = todos.filter((item) => {
           if (
@@ -51,120 +61,142 @@ function TodosList({ todos, filterTodo }) {
             return item;
           }
         });
-        console.log("TODOLIST - FILTERED RESULTS", filteredTodo);
-        setDisplayTodo(filteredTodo);
-      } else if (priority_type == "all" && category_type == "all") {
-        const filteredTodo = todos.filter((item) => {
-          return item;
+        const filterByCompleted = filteredTodo.sort((a, b) => {
+          if (a.isComplete && !b.isComplete) return -1;
+          if (!a.isComplete && b.isComplete) return 1;
+          return 0;
         });
-        console.log("TODOLIST - FILTERED RESULTS", filteredTodo);
-        setDisplayTodo(filteredTodo);
+
+        setDisplayTodo(filterByCompleted);
+      } else if (priority_type == "all" && category_type == "all") {
+        const filterByCompleted = todos.sort((a, b) => {
+          if (a.isComplete && !b.isComplete) return -1;
+          if (!a.isComplete && b.isComplete) return 1;
+          return 0;
+        });
+        console.log("SORT BY COMPLETED", filterByCompleted);
+
+        setDisplayTodo(filterByCompleted);
+    
       } else {
-        console.log("somethings wornf");
+        console.log("FILTER ERRO TODOLIST.JSX");
       }
     }
   }, [filterTodo]);
 
   useEffect(() => {
-    setDisplayTodo(todos);
+    const filterByCompleted = todos.sort((a, b) => {
+      if (a.isComplete && !b.isComplete) return -1;
+      if (!a.isComplete && b.isComplete) return 1;
+      return 0;
+    });
+    setDisplayTodo(filterByCompleted);
   }, [todos]);
 
   return (
     <ul className="todo__list-container">
-      {displayTodo.length ? <TodoItem handleToggleAsDoneTodo={handleToggleAsDoneTodo} handleDeleteTodo={handleDeleteTodo} handleEditTodo={handleEditTodo} displayTodo={displayTodo} /> : <TodoMessage/>
-        
-        }
+      {displayTodo.length ? (
+        <TodoItem
+          handleToggleAsDoneTodo={handleToggleAsDoneTodo}
+          handleDeleteTodo={handleDeleteTodo}
+          handleEditTodo={handleEditTodo}
+          displayTodo={displayTodo}
+        />
+      ) : (
+        <TodoMessage />
+      )}
     </ul>
   );
 }
 
-function TodoMessage(){
-
-  return(
-      <>
+function TodoMessage() {
+  return (
+    <>
       <div className="todo__message-container">
-      <h1 className="todo__h1-message">You're all caught up! 🎉</h1>
-      <p className="todo__h1-message"><em>Add a new task when you're ready.</em></p>
+        <h1 className="todo__h1-message">You're all caught up! 🎉</h1>
+        <p className="todo__h1-message">
+          <em>Add a new task when you're ready.</em>
+        </p>
       </div>
-
-      </>
-  )
+    </>
+  );
 }
 
-function TodoItem({displayTodo,handleEditTodo,handleDeleteTodo,handleToggleAsDoneTodo}){
-
-  return( <>
+function TodoItem({
+  displayTodo,
+  handleEditTodo,
+  handleDeleteTodo,
+  handleToggleAsDoneTodo,
+}) {
+  return (
+    <>
       {displayTodo.map((object, id) => {
-          return (
-            <li
-            
-              key={id}
-            >
-              {object.isEditActive == false && (
-                <div className="todo__item">
-                  <section className="todo__controls-container">
-                    <button
-                      className="todo__edit-btn"
-                      onClick={() => {
-                        handleEditTodo(object.id);
-                      }}
-                    >
-                      Edit
-                    </button>
+        return (
+          <li key={id}>
+            {object.isEditActive == false && (
+              <div className="todo__item">
+                <section className="todo__controls-container">
+                  <button
+                    className="todo__edit-btn"
+                    onClick={() => {
+                      handleEditTodo(object.id);
+                    }}
+                  >
+                    Edit
+                  </button>
 
-                    <button
-                      className="todo__delete-btn"
-                      onClick={() => {
-                        handleDeleteTodo(object.id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </section>
+                  <button
+                    className="todo__delete-btn"
+                    onClick={() => {
+                      handleDeleteTodo(object.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </section>
 
-                  <div className="todo__header-container">
-                    <p
-                      onClick={() => {
-                        handleToggleAsDoneTodo(object.id);
-                      }}
-                      className={`todo__title ${
-                        object.isComplete == true && "complete"
-                      }`}
-                    >
-                      {object.todoTitle}
-                    </p>
-                  </div>
-                  <ul className="todo__type-container">
-                    {todoUrgency.map((item, id) => {
-                      return item.value === object.todoPriority ? (
-                        <li key={id} className="todo__priority">
-                          Priority: {item.label}
-                        </li>
-                      ) : (
-                        ""
-                      );
-                    })}
-                    {todoCategory.map((item, id) => {
-                      return item.value === object.todoCategory ? (
-                        <li key={id} className="todo__category">
-                          Category: {item.label}
-                        </li>
-                      ) : (
-                        ""
-                      );
-                    })}
-                  </ul>
+                <div className="todo__header-container">
+                  <p
+                    onClick={() => {
+                      handleToggleAsDoneTodo(object.id);
+                    }}
+                    className={`todo__title ${
+                      object.isComplete == true && "complete"
+                    }`}
+                  >
+                    {object.todoTitle}
+                  </p>
                 </div>
-              )}
+                <ul className="todo__type-container">
+                  {todoUrgency.map((item, id) => {
+                    return item.value === object.todoPriority ? (
+                      <li key={id} className="todo__priority">
+                        Priority: {item.label}
+                      </li>
+                    ) : (
+                      ""
+                    );
+                  })}
+                  {todoCategory.map((item, id) => {
+                    return item.value === object.todoCategory ? (
+                      <li key={id} className="todo__category">
+                        Category: {item.label}
+                      </li>
+                    ) : (
+                      ""
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
 
-              {object.isEditActive == true && <EditForm object={object} />}
-            </li>
-          );
-        })}
-  </>)
-   
+            {object.isEditActive == true && <EditForm object={object} />}
+          </li>
+        );
+      })}
+    </>
+  );
 }
-
 
 function EditForm({ object }) {
   const dispatch = useContext(globalDispatch);
@@ -184,15 +216,12 @@ function EditForm({ object }) {
     });
   }
 
-  function handleBlur(e) {
-    console.log(e);
-  }
 
   return (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        onBlur={handleBlur}
+       
         className="todo__form-edit"
       >
         <input type="hidden" {...register("id")} value={object.id} />
