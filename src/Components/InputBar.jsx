@@ -29,9 +29,9 @@ function TodoForm({ onCreate }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // console.log(event)
+    
     const todoTitle = event.target[0].value || null;
-    console.log(event);
+    
     if (todoTitle) {
       const todoPriority = event.target[1].value;
       const todoCategory = event.target[2].value;

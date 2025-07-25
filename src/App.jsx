@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import "./Styles/App.scss";
 import InputBar from "./Components/InputBar";
 import TodosList from "./Components/TodosList";
@@ -78,9 +78,6 @@ function reducer(todos, action) {
     case ACTIONS.LOAD_TODO:
       return action.payload;
       break;
-    case ACTIONS.FILTER_TODO:
-            return action.payload
-      break;
   }
 }
 
@@ -88,7 +85,7 @@ export const globalDispatch = createContext(null);
 function App() {
   // THE PROBLEM IS WHEN ITS ONLY ONE ITEM IT CAN BE DELETED
   const [todos, dispatch] = useReducer(reducer, []);
-  
+  const [filterTodo,setFilterTodo] = useState()
 
 //   useEffect(()=>{
     
@@ -115,12 +112,24 @@ function App() {
 // console.log(todos);
 //   },[])
 
+  function handleFilter(todoPriority,todoCategory){
+
+      const filter = [
+      todoPriority,todoCategory
+    ]
+   
+    console.log("🚀 ~ handleFilter ~ filter:", filter)
+
+       setFilterTodo(filter)
+  }
+
+
   return (
     <>
       <globalDispatch.Provider value={dispatch}>
         <InputBar todos={todos} />
-        <TodosList todos={todos} />
-        <FilterBar todos={todos} />
+        <TodosList filterTodo={filterTodo}  todos={todos} />
+        <FilterBar  handleFilter={handleFilter} />
       </globalDispatch.Provider>
     </>
   );

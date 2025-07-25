@@ -2,7 +2,7 @@ import { ACTIONS, todoCategory, todoUrgency } from "../App";
 import { useState, useContext, useRef, useEffect} from "react";
 import { globalDispatch } from "../App";
 import {useForm} from "react-hook-form"
-function FilterBar({todos}) {
+function FilterBar({handleFilter}) {
 
 const dispatch = useContext(globalDispatch);
 const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -12,15 +12,7 @@ const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     const todoPriority = data.todoUrgency
     const todoCategory = data.todoCategory
-    console.log(todos)
-    const filtered = todos.filter((todo)=>{
-        if(todo.todoPriority === todoPriority ){
-                return todo
-        }
-    }) 
-    console.log("filtered",filtered)
-    dispatch({type: ACTIONS.FILTER_TODO, payload: filtered})
-
+    handleFilter(todoPriority,todoCategory)
     };
 
   return (
