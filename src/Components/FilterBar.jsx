@@ -4,7 +4,7 @@ import { globalDispatch } from "../App";
 import {useForm} from "react-hook-form"
 function FilterBar({handleFilter}) {
 
-const dispatch = useContext(globalDispatch);
+
 const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
 

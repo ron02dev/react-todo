@@ -15,7 +15,7 @@ function InputBar() {
         onClick={handleCreate}
         className={`todo__create-btn ${isActive == true && "hide"}`}
       >
-        New Task +
+        New Todo +
       </button>
       {isActive && <TodoForm onCreate={handleCreate} />}
     

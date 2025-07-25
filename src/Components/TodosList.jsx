@@ -8,6 +8,7 @@ function TodosList({ todos, filterTodo }) {
   const dispatch = useContext(globalDispatch);
   const [displayTodo, setDisplayTodo] = useState([]);
 
+
   const handleEditTodo = (selected_id) => {
     dispatch({ type: ACTIONS.EDIT_TODO, payload: { id: selected_id } });
   };
@@ -20,9 +21,10 @@ function TodosList({ todos, filterTodo }) {
     dispatch({ type: ACTIONS.TOGGLE_AS_DONE, payload: { id: selected_id } });
   };
 
-  function handleFilter() {
-    // IF HAS VALUE
-    if (filterTodo) {
+
+
+  useEffect(() => {
+  if (filterTodo) {
       const priority_type = filterTodo[0];
       const category_type = filterTodo[1];
    
@@ -66,19 +68,22 @@ function TodosList({ todos, filterTodo }) {
 
       
     }
-  }
-
-  useEffect(() => {
-
-    handleFilter();
   }, [filterTodo]);
+
+
+
+  useEffect(()=>{
+      setDisplayTodo(todos)
+  },[todos])
+
+
 
   return (
     <main className="">
       <ul className="todo__list-container">
 
 
-          { displayTodo.length > 0 && displayTodo.map((object, id) => {
+          { displayTodo && displayTodo.map((object, id) => {
                   return (
                     <li key={id}>
                       {object.isEditActive == false && (
