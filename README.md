@@ -1,3 +1,24 @@
+# 📝 React Todo App
+
+A simple and clean Todo application built using **React**. Users can add tasks, mark them as complete, and delete them. This app focuses on usability and modular React component structure.
+
+ <!-- Add a screenshot of your app here -->
+---
+
+## 🚀 Features
+
+- ✅ Add new tasks
+- 🗑️ Delete tasks
+- ✔️ Mark tasks as complete/incomplete
+- 📦 Component-based architecture
+- 🎨 Basic SCSS styling
+
+---
+
+## 🌟 to be added
+-filter by completed
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
