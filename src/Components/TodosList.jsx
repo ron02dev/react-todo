@@ -104,7 +104,6 @@ function EditForm({ object }) {
     const todoTitle =  data.todoTitle;
      const todoPriority = data.todoPriority;
      const todoCategory = data.todoCategory;
-      console.log(todoTitle)
       console.log(data)
       dispatch({type: ACTIONS.SUBMIT_EDIT, payload: {id,todoTitle,todoPriority,todoCategory}})
  }
