@@ -2,8 +2,7 @@
 
 A simple and clean Todo application built using **React**. Users can add tasks, mark them as complete, and delete them. This app focuses on usability and modular React component structure.
 
- <!-- Add a screenshot of your app here -->
----
+## <!-- Add a screenshot of your app here -->
 
 ## 🚀 Features
 
@@ -16,8 +15,12 @@ A simple and clean Todo application built using **React**. Users can add tasks, 
 ---
 
 ## 🌟 to be added
+
 -filter by completed
 
+## Live Server
+
+- https://muushyroom.github.io/react-todo/
 
 # React + Vite
 
