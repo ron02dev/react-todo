@@ -2,7 +2,7 @@ import { createContext, useEffect, useReducer } from "react";
 import "./Styles/App.scss";
 import InputBar from "./Components/InputBar";
 import TodosList from "./Components/TodosList";
-
+import FilterBar from "./Components/FilterBar";
 export const ACTIONS = {
   ADD_TODO: "add-todo",
   DELETE_TODO: "delete-todo",
@@ -11,25 +11,24 @@ export const ACTIONS = {
   CLEAR_TODO: "clear-todo",
   LOAD_TODO: "load-save",
   SUBMIT_EDIT: "submit-edit",
+  FILTER_TODO: "filter-todo"
 };
 
- export const todoUrgency = [
-    {value : "low", label : "Can Wait 🟢"},
-    {value : "normal", label : "Needs Attention 🟠"},
-    {value : "urgent", label : "Handle Immediately 🔴"}
-  ]
+export const todoUrgency = [
+  { value: "low", label: "Can Wait 🟢" },
+  { value: "normal", label: "Needs Attention 🟠" },
+  { value: "urgent", label: "Handle Immediately 🔴" },
+];
 
-   export const todoCategory = [
-    {
-      value : "personal", label : "Personal 👨🏻"
-    },
-    {value : "home", label : "Home 🏠"},
-    {value : "work", label : "Work 💼"},
-    {value : "others", label : "Others 👽"},
-
-  ]
-
-
+export const todoCategory = [
+  {
+    value: "personal",
+    label: "Personal 👨🏻",
+  },
+  { value: "home", label: "Home 🏠" },
+  { value: "work", label: "Work 💼" },
+  { value: "others", label: "Others 👽" },
+];
 
 function reducer(todos, action) {
   switch (action.type) {
@@ -46,7 +45,7 @@ function reducer(todos, action) {
       break;
 
     case ACTIONS.DELETE_TODO:
-      localStorage.clear()
+      localStorage.clear();
       return todos.filter((todo) => {
         return todo.id !== action.payload.id;
       });
@@ -64,65 +63,64 @@ function reducer(todos, action) {
         return todo;
       });
       break;
-      case ACTIONS.SUBMIT_EDIT:
-     return todos.map((todo) => {
+    case ACTIONS.SUBMIT_EDIT:
+      return todos.map((todo) => {
         if (action.payload.id === todo.id) {
-          console.log("fired",action.payload)
-          return { ...todo,isEditActive: !todo.isEditActive,...action.payload };
+          console.log("fired", action.payload);
+          return {
+            ...todo,
+            isEditActive: !todo.isEditActive,
+            ...action.payload,
+          };
         }
         return todo;
       });
-      case ACTIONS.LOAD_TODO:
-          return action.payload;
-        break;
-      
+    case ACTIONS.LOAD_TODO:
+      return action.payload;
+      break;
+    case ACTIONS.FILTER_TODO:
+            return action.payload
+      break;
   }
- 
-  
 }
 
 export const globalDispatch = createContext(null);
-
-
 function App() {
-  
-  
   // THE PROBLEM IS WHEN ITS ONLY ONE ITEM IT CAN BE DELETED
   const [todos, dispatch] = useReducer(reducer, []);
-  console.log(todos)
-  useEffect(()=>{
+  
 
-    console.log(todos.length)
-    if(todos.length){
-      localStorage.clear()
-    localStorage.setItem('todos',JSON.stringify(todos))
-   console.log(JSON.parse(localStorage.getItem('todos')))
-    }
-
-  },[todos])
-
-
-  useEffect(()=>{
-
-    const getLocalTodo = JSON.parse(localStorage.getItem('todos')) || null
-
-    if(getLocalTodo){
-      const newTodos = getLocalTodo.map((item)=>{
-          return item
-    })  
-    console.log(newTodos)
-     newTodos && dispatch({ type: ACTIONS.LOAD_TODO, payload: getLocalTodo });
-    console.log(getLocalTodo) 
-    }
+//   useEffect(()=>{
     
-    
-  },[])
- 
+//     if(todos.length){
+//       localStorage.clear()
+//     localStorage.setItem('todos',JSON.stringify(todos))
+//    console.log(JSON.parse(localStorage.getItem('todos')))
+//     }
+
+//   },[todos])
+
+//   useEffect(()=>{
+
+//     const getLocalTodo = JSON.parse(localStorage.getItem('todos')) || null
+
+//     if(getLocalTodo){
+//       const newTodos = getLocalTodo.map((item)=>{
+//           return item
+//     })
+//     console.log(newTodos)
+//      newTodos && dispatch({ type: ACTIONS.LOAD_TODO, payload: getLocalTodo });
+//     console.log(getLocalTodo)
+//     }
+// console.log(todos);
+//   },[])
+
   return (
     <>
       <globalDispatch.Provider value={dispatch}>
         <InputBar todos={todos} />
         <TodosList todos={todos} />
+        <FilterBar todos={todos} />
       </globalDispatch.Provider>
     </>
   );

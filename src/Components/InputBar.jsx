@@ -18,6 +18,7 @@ function InputBar() {
         New Task +
       </button>
       {isActive && <TodoForm onCreate={handleCreate} />}
+    
     </div>
   );
 }
@@ -104,5 +105,10 @@ function TodoForm({ onCreate }) {
     </form>
   );
 }
+
+
+
+
+
 
 export default InputBar;
