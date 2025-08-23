@@ -20,7 +20,7 @@ A simple and clean Todo application built using **React**. Users can add tasks, 
 
 ## Live Server
 
-- https://muushyroom.github.io/react-todo/
+- https://ron02dev.github.io/react-todo/
 
 # React + Vite
 
