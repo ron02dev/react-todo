@@ -3,6 +3,7 @@ import "./Styles/App.scss";
 import InputBar from "./Components/InputBar";
 import TodosList from "./Components/TodosList";
 import FilterBar from "./Components/FilterBar";
+
 export const ACTIONS = {
   ADD_TODO: "add-todo",
   DELETE_TODO: "delete-todo",
