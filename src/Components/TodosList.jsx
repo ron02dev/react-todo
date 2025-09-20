@@ -231,7 +231,7 @@ function EditForm({ object }) {
           defaultValue={object.todoTitle}
           {...register("todoTitle", {
             required: true,
-            maxLength: 30,
+            maxLength: 50,
             message: "required input",
           })}
         />
