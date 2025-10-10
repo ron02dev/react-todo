@@ -77,7 +77,6 @@ function TodosList({ todos, filterTodo }) {
         console.log("SORT BY COMPLETED", filterByCompleted);
 
         setDisplayTodo(filterByCompleted);
-    
       } else {
         console.log("FILTER ERRO TODOLIST.JSX");
       }
@@ -216,14 +215,9 @@ function EditForm({ object }) {
     });
   }
 
-
   return (
     <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-       
-        className="todo__form-edit"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="todo__form-edit">
         <input type="hidden" {...register("id")} value={object.id} />
         <input
           type="text"
@@ -231,7 +225,7 @@ function EditForm({ object }) {
           defaultValue={object.todoTitle}
           {...register("todoTitle", {
             required: true,
-            maxLength: 50,
+            maxLength: 55,
             message: "required input",
           })}
         />

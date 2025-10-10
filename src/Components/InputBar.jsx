@@ -18,7 +18,6 @@ function InputBar() {
         New Todo +
       </button>
       {isActive && <TodoForm onCreate={handleCreate} />}
-    
     </div>
   );
 }
@@ -29,9 +28,9 @@ function TodoForm({ onCreate }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
     const todoTitle = event.target[0].value || null;
-    
+
     if (todoTitle) {
       const todoPriority = event.target[1].value;
       const todoCategory = event.target[2].value;
@@ -46,8 +45,6 @@ function TodoForm({ onCreate }) {
       };
 
       dispatch({ type: ACTIONS.ADD_TODO, payload: newTodo });
-
-  
     } else {
       console.log("focus lost");
       onCreate();
@@ -69,7 +66,7 @@ function TodoForm({ onCreate }) {
     <form onSubmit={handleSubmit} className="todo__form">
       <input
         ref={inputRef}
-        maxLength={50}
+        maxLength={55}
         type="text"
         className="todo__input"
         onChange={(event) => {
@@ -105,10 +102,5 @@ function TodoForm({ onCreate }) {
     </form>
   );
 }
-
-
-
-
-
 
 export default InputBar;
